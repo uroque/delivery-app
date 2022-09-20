@@ -1,6 +1,6 @@
 'use strict';
 
-const Products = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const products = sequelize.define('products', {
     id: {
       type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ const Products = (sequelize, DataTypes) => {
   });
 
   products.associate = (models) => {
-    products.hasMany(models.saleProducts, { foreignKey: 'productId', as: 'products' });
+    products.belongsToMany(models.sales, { foreignKey: 'productId', through: models.salesProducts, as: 'soldProducts' });
   };
 
   return products;
