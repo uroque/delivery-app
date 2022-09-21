@@ -5,7 +5,12 @@ const postLogin = async (email, _password) => {
     if (!database) return null;
     const emailData = database.email;
     if (email !== emailData) return null;    
-    return database;
+    return {
+      name: database.name,
+      email: database.email,
+      role: database.role,
+      token: 'token',
+    };
 };
 // FAZER A VALIDACAO DO PASSWORD COM O JWT
 

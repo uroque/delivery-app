@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginContext from '../context/loginContext/context';
 
 function Login() {
@@ -7,7 +8,7 @@ function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEmailInValid, setIsEmailInValid] = useState(false);
 
-  // const handleInput = ({ target: { name, value }})
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validateCredentials = () => {
@@ -39,6 +40,16 @@ function Login() {
       }
       localStorage.setItem('user', JSON.stringify(response));
       setIsEmailInValid(false);
+
+      if (response.role === 'administrator') {
+        return navigate('/admin/manage');
+      }
+      if (response.role === 'seller') {
+        return navigate('/seller/orders');
+      }
+      if (response.role === 'customer') {
+        return navigate('/customer/products');
+      }
     } catch (error) {
       console.log(error);
     }
