@@ -40,7 +40,8 @@ describe('Register page', () => {
     expect(registerButton).toBeInTheDocument();
   });
 
-  it('Click on common_register__button-register redirects the user to /customer/products', () => {
+  it(`Click on common_register__button-register redirects the user to 
+  /customer/products`, () => {
     const { getByTestId, history } = renderWithRouter(
       <App />,
     );
@@ -52,7 +53,8 @@ describe('Register page', () => {
     expect(history.location.pathname).toBe('/customer/products');
   });
 
-  it('Have a hidden element with data-test-id="common_register__element-invalid_register"', () => {
+  it(`Have a hidden element with 
+  data-test-id="common_register__element-invalid_register"`, () => {
     const { getByTestId, history } = renderWithRouter(<App />);
 
     history.push('/register');
@@ -60,4 +62,4 @@ describe('Register page', () => {
 
     expect(invalidRegister).not.toBeInTheDocument();
   });
-})
+});
