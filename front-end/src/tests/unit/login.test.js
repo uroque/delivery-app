@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
-import App from '../../../pages/LoginPage';
+import App from '../../App';
 
 
 describe('Login page', () => {
