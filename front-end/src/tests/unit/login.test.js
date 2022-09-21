@@ -1,8 +1,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import renderWithRouter from './renderWithRouter';
+import renderWithRouter from '../utils/renderWithRouter';
 import App from '../../App';
-
 
 describe('Login page', () => {
   it('Have e-mail input with data-test-id="common_login__input-email"', () => {

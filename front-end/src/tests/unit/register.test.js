@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import renderWithRouter from './renderWithRouter';
+import renderWithRouter from '../utils/renderWithRouter';
 import App from '../../App';
 
 describe('Register page', () => {
