@@ -10,4 +10,3 @@ const http = {
   };
   
   module.exports = http;
-  

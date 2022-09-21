@@ -1,10 +1,10 @@
-const postLogin  = require('../services/loginService');
+const postLogin = require('../services/loginService');
 const http = require('../utils/httpStatus');
 
 const postUser = async (req, res) => {
   const { email, password } = req.body;
   const isUser = await postLogin(email, password);
-  if(!isUser) {
+  if (!isUser) {
   return res.status(http.notFoundStatus).json({ message: 'Not found' });
   }
  
@@ -14,4 +14,3 @@ const postUser = async (req, res) => {
 };
 
 module.exports = { postUser };
- 

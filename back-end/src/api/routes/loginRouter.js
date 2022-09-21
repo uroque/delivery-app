@@ -1,7 +1,7 @@
 const express = require('express');
 
 const rota = express.Router();
-const { postUser }  = require("../controllers/loginController");
+const { postUser } = require('../controllers/loginController');
 
 // -----------GET----------------
 // -----------POST---------------
