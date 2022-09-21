@@ -3,7 +3,7 @@ import { fireEvent } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import App from '../../App';
 
-describe('Login page', () => {
+describe('Register page', () => {
   it('Have text input with data-test-id="common_register__input-name"', () => {
     const { getByTestId, history } = renderWithRouter(<App />);
 
