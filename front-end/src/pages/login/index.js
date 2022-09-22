@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginContext from '../context/loginContext/context';
+import loginContext from '../../context/loginContext/context';
 
 function Login() {
   const { userEmail, userPassword, setUserPassword,
