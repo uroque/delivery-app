@@ -16,6 +16,19 @@ const postLogin = async (email, password) => {
       token: 'token',
     };
 };
+
+const postRegister = async (name, email, password) => {
+    const database = await users.findOne({ where: { email } });
+    if (database) return null;
+    await users.create({ name, email, password: md5(password), role: 'customer' });
+    return {
+      name,
+      email,
+      role: 'customer',
+      token: 'token',
+    };
+};
+
 // FAZER A VALIDACAO DO PASSWORD COM O JWT
 
-module.exports = postLogin;
+module.exports = { postLogin, postRegister };

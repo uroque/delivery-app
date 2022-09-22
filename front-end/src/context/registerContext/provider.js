@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import propTypes from 'prop-types';
 import registerContext from './context';
 
 function RegisterProvider({ children }) {
-  const [register, setRegister] = useState({
-    name: '',
-    email: '',
-    senha: '',
-  });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const context = useMemo(() => ({
-    register,
-    setRegister,
-  }), [register, setRegister]);
+    name,
+    email,
+    password,
+    setName,
+    setEmail,
+    setPassword,
+  }), [name, email, password]);
 
   return (
     <registerContext.Provider value={ context }>

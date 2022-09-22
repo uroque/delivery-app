@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import loginContext from '../context/loginContext/context';
+import loginContext from '../../context/loginContext/context';
 
 function Login() {
   const { userEmail, userPassword, setUserPassword,
@@ -92,7 +92,7 @@ function Login() {
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ () => {} }
+        onClick={ () => { navigate('/register'); } }
       >
         Ainda não tenho conta
       </button>
