@@ -1,11 +1,12 @@
 const express = require('express');
 
 const rota = express.Router();
-const { postUser } = require('../controllers/loginController');
+const { postUser, postRegisterUser } = require('../controllers/loginController');
 
 // -----------GET----------------
 // -----------POST---------------
-rota.post('/', postUser);
+rota.post('/login', postUser);
+rota.post('/register', postRegisterUser);
 // -----------PUT----------------
 
 module.exports = rota;

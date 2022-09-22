@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(accessControl);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
-app.use('/login', routerLogin);
-app.use('/customer/products', routerProducts);
+app.use(routerLogin);
+app.use(routerProducts);
 
 module.exports = app;

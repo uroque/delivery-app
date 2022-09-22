@@ -1,4 +1,4 @@
-const postLogin = require('../services/loginService');
+const { postLogin, postRegister } = require('../services/loginService');
 const http = require('../utils/httpStatus');
 
 const postUser = async (req, res) => {
@@ -13,4 +13,13 @@ const postUser = async (req, res) => {
   // Elemento: common_login__element-invalid-email
 };
 
-module.exports = { postUser };
+const postRegisterUser = async (req, res) => {
+  const { name, email, password } = req.body;
+  const User = await postRegister(name, email, password);
+  if (!User) {
+  return res.status(http.conflictStatus).json({ message: 'O usuário já existe' });
+  }
+  res.status(201).json(User);
+};
+
+module.exports = { postUser, postRegisterUser };
