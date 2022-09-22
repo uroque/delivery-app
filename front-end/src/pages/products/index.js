@@ -7,7 +7,9 @@ function Products() {
     <>
       <NavBar />
       <Card />
-      ;
+      <button type="button" data-testid="customer_products__checkout-bottom-value">
+        Ver Carrinho
+      </button>
     </>
   );
 }

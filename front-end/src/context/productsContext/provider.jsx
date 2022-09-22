@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import propTypes from 'prop-types';
 
 import ProductsContext from './context';
 
 function ProductsProvider({ children }) {
+  const [productList, setProducts] = useState([]);
+
+  const memo = useMemo(
+    () => ({
+      productList,
+      setProducts,
+    }),
+    [productList, setProducts],
+  );
+
   return (
-    <ProductsContext.Provider>
+    <ProductsContext.Provider value={ memo }>
       {children}
     </ProductsContext.Provider>
   );

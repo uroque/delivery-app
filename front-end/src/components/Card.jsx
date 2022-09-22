@@ -6,7 +6,7 @@ function Card() {
 
   useEffect(() => {
     async function getAllProducts() {
-      const request = await fetch('http://localhost:3003/customer/products', {
+      const request = await fetch('http://localhost:=3001/customer/products', {
         method: 'GET',
       });
       const response = await request.json();
@@ -25,7 +25,7 @@ function Card() {
           <img
             src={ item.url_image }
             alt={ item.name }
-            data-testid={ `customer_products__element-card-bg-image-${item.id}` }
+            data-testid={ `customer_products__img-card-bg-image-${item.id}` }
           />
           <p data-testid={ `customer_products__element-card-title-${item.id}` }>
             {item.name}
@@ -36,11 +36,9 @@ function Card() {
           >
             -
           </button>
-          <span
+          <input
             data-testid={ `customer_products__input-card-quantity-${item.id}` }
-          >
-            0
-          </span>
+          />
           <button
             type="button"
             data-testid={ `customer_products__button-card-add-item-${item.id}` }
