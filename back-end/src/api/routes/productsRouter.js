@@ -4,6 +4,6 @@ const rota = express.Router();
 const ProductController = require('../controllers/productsController');
 
 // -----------GET----------------
-rota.get('/', ProductController.getAll);
+rota.get('/customer/products', ProductController.getAll);
 
 module.exports = rota;
