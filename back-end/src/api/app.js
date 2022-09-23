@@ -1,5 +1,6 @@
 const express = require('express');
 const routerLogin = require('./routes/loginRouter');
+const routerProducts = require('./routes/productsRouter');
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use(accessControl);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(routerLogin);
+app.use(routerProducts);
 
 module.exports = app;
