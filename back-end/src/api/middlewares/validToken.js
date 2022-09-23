@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const http = require('../utils/httpStatus');
+const secret = require('fs').readFileSync('../../../jwt.evaluation.key', { encoding: "utf-8" });
 
 const tokenValidation = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -7,7 +8,6 @@ const tokenValidation = async (req, res, next) => {
     return res.status(http.HTTP_UNAUTHORIZE).json({ message: 'Token not found' });
   }
   try {
-    const secret = process.env.JWT_SECRET || 'jwt_secret';
     const { data } = jwt.verify(authorization, secret);
     req.body.data = data;
     next();

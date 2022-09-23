@@ -70,10 +70,10 @@ function Card() {
       { productList.map((item) => (
         <div key={ item.id }>
           <h3 data-testid={ `customer_products__element-card-price-${item.id}` }>
-            {item.price}
+            {item.price.replace('.', ',')}
           </h3>
           <img
-            src={ item.url_image }
+            src={ item.urlImage }
             alt={ item.name }
             data-testid={ `customer_products__img-card-bg-image-${item.id}` }
           />
@@ -106,6 +106,7 @@ function Card() {
           >
             +
           </button>
+          <button type="button"> testeee </button>
         </div>
       )) }
     </>

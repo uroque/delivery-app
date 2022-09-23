@@ -1,7 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
-  const nome = 'fulano';
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem('user');
+    return navigate('/login');
+  };
+
   return (
     <nav>
       <button
@@ -20,11 +29,12 @@ function NavBar() {
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        { `${nome}` }
+        { `${user.name}` }
       </button>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => logOut() }
       >
         Sair
       </button>
