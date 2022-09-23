@@ -78,7 +78,26 @@
           "201": "A new user was created",
           "409": "Invalid data used for register a new user"
         },
-        "tags": ["Admin"]
+        "tags": ["Admin"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }    
   }
