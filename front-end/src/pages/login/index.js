@@ -26,7 +26,7 @@ function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const request = await fetch('http://localhost:3001/login', {
+      const request = await fetch('http://localhost:3003/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
