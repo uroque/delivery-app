@@ -12,7 +12,38 @@
         "description": "Use to login",
         "responses": {
           "200": {
-            "description": "A successful login response"
+            "description": "A successful login response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "name": "Jane Doe",
+                      "email": "jane@doe.com",
+                      "role": "user role",
+                      "toke": "user token"
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
             "description": "Invalid data used for login"
