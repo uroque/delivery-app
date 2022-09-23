@@ -11,8 +11,12 @@
       "post": {
         "description": "Use to login",
         "responses": {
-          "200": "A successful login response",
-          "404": "Invalid data used for login"
+          "200": {
+            "description": "A successful login response"
+          },
+          "404": {
+            "description": "Invalid data used for login"
+          }
         },
         "tags": ["Login"],
         "requestBody": {
@@ -27,9 +31,18 @@
                     "type": "string"
                   }
                 }
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "jane@doe.com",
+                    "password": "myPassword"
+                  }
+                }
               }
             }
-          }
+          },
+          "required": "true"
         }
       }
     },
@@ -37,8 +50,12 @@
       "post": {
         "description": "Use to register a new user",
         "responses": {
-          "201": "A new user was successfully created response",
-          "409": "Invalid data used for register a new user"
+          "201": {
+            "description": "A new user was successfully created response"
+          },
+          "409": {
+            "description": "Invalid data used for register a new user"
+          } 
         },
         "tags": ["Register"],
         "requestBody": {
@@ -56,9 +73,19 @@
                     "type": "string"
                   }
                 }
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "password": "myPassword"
+                  }
+                }
               }
             }
-          }
+          },
+          "required": "true"
         }
       }
     },
@@ -66,7 +93,9 @@
       "post": {
         "description": "Route to register a new order",
         "responses": {
-          "201": "A new order was created"
+          "201": {
+            "description": "A new order was created"
+          }
         },
         "tags": ["Customer"]
       }
@@ -75,8 +104,12 @@
       "post": {
         "description": "Route administrator users to register a new user",
         "responses": {
-          "201": "A new user was created",
-          "409": "Invalid data used for register a new user"
+          "201": {
+            "description": "A new user was created"
+          },
+          "409": {
+            "description": "Invalid data used for register a new user"
+          }
         },
         "tags": ["Admin"],
         "requestBody": {
@@ -94,9 +127,19 @@
                     "type": "string"
                   }
                 }
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "password": "myPassword"
+                  }
+                }
               }
             }
-          }
+          },
+          "required": "true"
         }
       }
     }    
