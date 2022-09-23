@@ -7,6 +7,6 @@ const getAll = async (_req, res) => {
     return res.status(http.notFoundStatus).json({ message: 'Not found' });
   }
   return res.status(http.okStatus).json(products);
-}
+};
 
 module.exports = { getAll };

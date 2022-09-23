@@ -2,11 +2,17 @@ import React, { useContext, useEffect } from 'react';
 import ProductsContext from '../context/productsContext/context';
 
 function Card() {
-  const { productList, setProducts } = useContext(ProductsContext);
+  const {
+    productList,
+    setProducts,
+    productsCart = [],
+    addProducToCart,
+    removeProductToCart,
+  } = useContext(ProductsContext);
 
   useEffect(() => {
     async function getAllProducts() {
-      const request = await fetch('http://localhost:=3001/customer/products', {
+      const request = await fetch('http://localhost:3001/customer/products', {
         method: 'GET',
       });
       const response = await request.json();
@@ -33,15 +39,27 @@ function Card() {
           <button
             type="button"
             data-testid={ `customer_products__button-card-rm-item-${item.id}` }
+            onClick={ () => removeProductToCart(item.id) }
+            value="-"
           >
             -
           </button>
-          <input
+          {/* <input
             data-testid={ `customer_products__input-card-quantity-${item.id}` }
-          />
+            type="number"
+            value={ itensQuantity }
+            onChange={ (event) => { setItensQuantity(event.target.value); } }
+          /> */}
+          <h3>
+            {productsCart.find((product) => product.id === item.id)?.qtd
+              ? productsCart.find((product) => product.id === item.id)?.qtd
+              : 0}
+          </h3>
           <button
             type="button"
             data-testid={ `customer_products__button-card-add-item-${item.id}` }
+            onClick={ () => addProducToCart(item.id) }
+            value="+"
           >
             +
           </button>

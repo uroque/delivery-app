@@ -1,15 +1,14 @@
 import React from 'react';
 import Card from '../../components/Card';
 import NavBar from '../../components/navBar';
+import ShowCartItem from '../../components/showCartElement';
 
 function Products() {
   return (
     <>
       <NavBar />
       <Card />
-      <button type="button" data-testid="customer_products__checkout-bottom-value">
-        Ver Carrinho
-      </button>
+      <ShowCartItem />
     </>
   );
 }
