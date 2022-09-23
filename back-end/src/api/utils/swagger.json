@@ -1,0 +1,85 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Delivery APP API",
+    "description": "description",
+    "termsOfService": "http://localhost/3001",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Use to login",
+        "responses": {
+          "200": "A successful login response",
+          "404": "Invalid data used for login"
+        },
+        "tags": ["Login"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "description": "Use to register a new user",
+        "responses": {
+          "201": "A new user was successfully created response",
+          "409": "Invalid data used for register a new user"
+        },
+        "tags": ["Register"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/orders/:id": {
+      "post": {
+        "description": "Route to register a new order",
+        "responses": {
+          "201": "A new order was created"
+        },
+        "tags": ["Customer"]
+      }
+    },
+    "/admin": {
+      "post": {
+        "description": "Route administrator users to register a new user",
+        "responses": {
+          "201": "A new user was created",
+          "409": "Invalid data used for register a new user"
+        },
+        "tags": ["Admin"]
+      }
+    }    
+  }
+}
