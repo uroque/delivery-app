@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../../utils/renderWithRouter';
 import App from '../../../App';
 
@@ -9,10 +10,9 @@ describe('Customer Order page', () => {
   describe('Navigation bar', () => {
     it(`Have a button with 
     data-test-id="customer_products__element-navbar-link-products"`, () => {
-      const { getByTestId, history } = renderWithRouter(<App />);
+      renderWithRouter(<App />, { route: customerOrdersPath });
 
-      history.push(customerOrdersPath);
-      const productsButton = getByTestId((
+      const productsButton = screen.getByTestId((
         'customer_products__element-navbar-link-products'));
 
       expect(productsButton).toBeInTheDocument();
@@ -20,20 +20,19 @@ describe('Customer Order page', () => {
 
     it(`Have password input with 
     data-test-id="customer_products__element-navbar-link-orders"`, () => {
-      const { getByTestId, history } = renderWithRouter(<App />);
+      renderWithRouter(<App />, { route: customerOrdersPath });
 
-      history.push(customerOrdersPath);
-      const ordersButton = getByTestId(('customer_products__element-navbar-link-orders'));
+      const ordersButton = screen
+        .getByTestId(('customer_products__element-navbar-link-orders'));
 
       expect(ordersButton).toBeInTheDocument();
     });
 
     it(`Have an element with 
     data-test-id="customer_products__element-navbar-user-full-name"`, () => {
-      const { getByTestId, history } = renderWithRouter(<App />);
+      renderWithRouter(<App />, { route: customerOrdersPath });
 
-      history.push(customerOrdersPath);
-      const passwordInput = getByTestId((
+      const passwordInput = screen.getByTestId((
         'customer_products__element-navbar-user-full-name'));
 
       expect(passwordInput).toBeInTheDocument();
@@ -41,33 +40,29 @@ describe('Customer Order page', () => {
 
     it(`Have a button with 
     data-test-id="customer_products__element-navbar-link-logout"`, () => {
-      const { getByTestId, history } = renderWithRouter(<App />);
+      renderWithRouter(<App />, { route: customerOrdersPath });
 
-      history.push(customerOrdersPath);
-      const logoutButton = getByTestId(('customer_products__element-navbar-link-logout'));
+      const logoutButton = screen
+        .getByTestId(('customer_products__element-navbar-link-logout'));
 
       expect(logoutButton).toBeInTheDocument();
     });
 
-    it(`Click on customer_products__element-navbar-link-logout redirects the user to 
-    /login`, () => {
-      const { getByTestId, history } = renderWithRouter(
-        <App />,
-      );
+    // it(`Click on customer_products__element-navbar-link-logout redirects the user to
+    // /login`, () => {
+    //   renderWithRouter(<App />, { route: customerOrdersPath });
 
-      history.push('/costumer/products');
-      const logoutButton = getByTestId('common_register__button-register');
-      fireEvent.click(logoutButton);
+    //   const logoutButton = screen.getByTestId('common_register__button-register');
+    //   fireEvent.click(logoutButton);
 
-      expect(history.location.pathname).toBe('/login');
-    });
+    //   expect(history.location.pathname).toBe('/login');
+    // });
 
     it(`Have an element with 
     data-test-id="customer_products__checkout-bottom-value"`, () => {
-      const { getByTestId, history } = renderWithRouter(<App />);
+      renderWithRouter(<App />, { route: customerOrdersPath });
 
-      history.push(customerOrdersPath);
-      const passwordInput = getByTestId((
+      const passwordInput = screen.getByTestId((
         'customer_products__checkout-bottom-value'));
 
       expect(passwordInput).toBeInTheDocument();
