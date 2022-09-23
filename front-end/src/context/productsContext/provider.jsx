@@ -6,6 +6,12 @@ import ProductsContext from './context';
 function ProductsProvider({ children }) {
   const [productList, setProducts] = useState([]);
   const [productsCart, setProductsCart] = useState([]);
+  const [quantity, setQuantity] = useState([]);
+  const [inputValue, setInputValue] = useState([]);
+
+  function inputUserValue(event) {
+    setInputValue(event.target.value);
+  }
 
   function addProducToCart(id) {
     const copyProductsCart = [...productsCart];
@@ -15,6 +21,7 @@ function ProductsProvider({ children }) {
     } else {
       item.qtd += 1;
     }
+
     setProductsCart(copyProductsCart);
   }
 
@@ -36,9 +43,13 @@ function ProductsProvider({ children }) {
     () => ({
       productList,
       productsCart,
+      quantity,
+      inputValue,
+      setQuantity,
       addProducToCart,
       removeProductToCart,
       setProducts,
+      inputUserValue,
     }),
     [productList, productsCart, setProducts],
   );

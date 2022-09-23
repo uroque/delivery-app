@@ -6,7 +6,7 @@ function ShowCartItem() {
       type="button"
       data-testid="customer_products__checkout-bottom-value"
     >
-      Ver carrinho Total
+      Ver carrinho $-valor-
     </button>
   );
 }

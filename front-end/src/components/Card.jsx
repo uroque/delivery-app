@@ -8,11 +8,12 @@ function Card() {
     productsCart = [],
     addProducToCart,
     removeProductToCart,
+    inputUserValue,
   } = useContext(ProductsContext);
 
   useEffect(() => {
     async function getAllProducts() {
-      const request = await fetch('http://localhost:3001/customer/products', {
+      const request = await fetch('http://localhost:3003/customer/products', {
         method: 'GET',
       });
       const response = await request.json();
@@ -44,17 +45,16 @@ function Card() {
           >
             -
           </button>
-          {/* <input
+
+          <input
             data-testid={ `customer_products__input-card-quantity-${item.id}` }
             type="number"
-            value={ itensQuantity }
-            onChange={ (event) => { setItensQuantity(event.target.value); } }
-          /> */}
-          <h3>
-            {productsCart.find((product) => product.id === item.id)?.qtd
+            value={ productsCart.find((product) => product.id === item.id)?.qtd
               ? productsCart.find((product) => product.id === item.id)?.qtd
-              : 0}
-          </h3>
+              : 0 }
+            onChange={ (event) => inputUserValue(event.target.value) }
+          />
+
           <button
             type="button"
             data-testid={ `customer_products__button-card-add-item-${item.id}` }
