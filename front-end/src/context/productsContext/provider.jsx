@@ -51,7 +51,12 @@ function ProductsProvider({ children }) {
       setProducts,
       inputUserValue,
     }),
-    [productList, productsCart, setProducts],
+    [addProducToCart,
+      inputValue,
+      productList,
+      productsCart,
+      quantity,
+      removeProductToCart],
   );
 
   return (
