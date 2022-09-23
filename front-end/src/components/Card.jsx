@@ -56,7 +56,7 @@ function Card() {
 
   useEffect(() => {
     async function getAllProducts() {
-      const request = await fetch('http://localhost:3003/customer/products', {
+      const request = await fetch('http://localhost:3001/customer/products', {
         method: 'GET',
       });
       const response = await request.json();
