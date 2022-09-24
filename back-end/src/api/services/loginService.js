@@ -33,7 +33,7 @@ const postRegister = async (name, email, password, role) => {
       id, 
       name,
       email,
-      role: userRole,
+      role,
     });
     return {
       name,
