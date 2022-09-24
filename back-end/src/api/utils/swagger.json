@@ -10,23 +10,25 @@
     "/login": {
       "post": {
         "description": "Use to login",
+        "tags": ["Login"],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "A successful login response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserLoginResponse"
-                },
                 "examples": {
-                  "user": {
+                  "Login Response": {
                     "value": {
                       "name": "Jane Doe",
                       "email": "jane@doe.com",
                       "role": "user role",
-                      "toke": "user token"
+                      "token": "user token"
                     }
                   }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Login Response"
                 }
               }
             }
@@ -35,20 +37,19 @@
             "description": "Invalid data used for login"
           }
         },
-        "tags": ["Login"],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserLogin"
-              },
               "examples": {
-                "user": {
+                "User Login": {
                   "value": {
                     "email": "jane@doe.com",
                     "password": "myPassword"
                   }
                 }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/User Login"
               }
             }
           },
@@ -59,6 +60,7 @@
     "/register": {
       "post": {
         "description": "Use to register a new user",
+        "tags": ["Register"],
         "responses": {
           "201": {
             "description": "A new user was successfully created response"
@@ -67,15 +69,14 @@
             "description": "Invalid data used for register a new user"
           } 
         },
-        "tags": ["Register"],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref":"#/components/schemas/NewUser"
+                "$ref":"#/components/schemas/New User"
               },
               "examples": {
-                "user": {
+                "New User": {
                   "value": {
                     "name": "Jane Doe",
                     "email": "jane@doe.com",
@@ -89,20 +90,40 @@
         }
       }
     },
-    "/customer/orders/:id": {
+    "customer/orders": {
       "post": {
         "description": "Route to register a new order",
+        "tags": ["Customer"],
         "responses": {
           "201": {
             "description": "A new order was created"
           }
-        },
-        "tags": ["Customer"]
+        }
+      }
+    },
+    "/customer/orders/{id}": {
+      "get": {
+        "description": "Route to get a order by ID",
+        "tags": ["Customer"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Products name by ID",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order successfully returned"
+          }
+        }
       }
     },
     "/admin": {
       "post": {
         "description": "Route administrator users to register a new user",
+        "tags": ["Admin"],
         "responses": {
           "201": {
             "description": "A new user was created"
@@ -111,15 +132,14 @@
             "description": "Invalid data used for register a new user"
           }
         },
-        "tags": ["Admin"],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref":"#/components/schemas/NewUser"
+                "$ref":"#/components/schemas/New User"
               },
               "examples": {
-                "user": {
+                "New User": {
                   "value": {
                     "name": "Jane Doe",
                     "email": "jane@doe.com",
@@ -136,7 +156,7 @@
   },
   "components": {
     "schemas": {
-      "UserLogin": {
+      "User Login": {
         "type": "object",
         "properties": {
           "email": {
@@ -147,7 +167,7 @@
           }
         }
       },
-      "UserLoginResponse": {
+      "Login Response": {
         "type": "object",
         "properties": {
           "name": {
@@ -164,7 +184,7 @@
           }
         }
       },
-      "NewUser": {
+      "New User": {
         "type": "object",
         "properties": {
           "name": {
@@ -177,6 +197,13 @@
             "type": "string"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
