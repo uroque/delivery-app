@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductsContext from '../context/productsContext/context';
 
 function ShowCartItem() {
@@ -7,6 +8,13 @@ function ShowCartItem() {
     total,
     setTotal,
   } = useContext(ProductsContext);
+
+  const navigate = useNavigate();
+
+  const goToCart = () => {
+    localStorage.setItem('cart', JSON.stringify(productsCart));
+    return navigate('/customer/checkout');
+  };
 
   useEffect(() => {
     async function getTotal() {
@@ -22,9 +30,13 @@ function ShowCartItem() {
   return (
     <button
       type="button"
-      data-testid="customer_products__checkout-bottom-value"
+      data-testid="customer_products__button-cart"
+      onClick={ goToCart }
+      disabled={ productsCart.length === 0 }
     >
-      { `${total}`.replace('.', ',') }
+      <p data-testid="customer_products__checkout-bottom-value">
+        { `${total}`.replace('.', ',') }
+      </p>
     </button>
   );
 }
