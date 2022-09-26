@@ -1,5 +1,8 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./utils/swagger.json');
 const routerLogin = require('./routes/loginRouter');
+const routerProducts = require('./routes/productsRouter');
 
 const app = express();
 
@@ -12,8 +15,13 @@ const accessControl = (_req, res, next) => {
 
 app.use(express.json());
 app.use(accessControl);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(routerLogin);
+app.use(routerProducts);
+
+console.log('teste', __dirname);
+app.use(express.static('public'));
 
 module.exports = app;
