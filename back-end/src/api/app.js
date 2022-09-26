@@ -17,8 +17,7 @@ app.use(accessControl);
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(routerLogin);
 app.use(routerProducts);
-
-console.log('teste', __dirname);
+ 
 app.use(express.static('public'));
 
 module.exports = app;
