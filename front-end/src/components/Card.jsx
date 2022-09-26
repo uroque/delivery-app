@@ -12,10 +12,16 @@ function Card() {
   function addProducToCart(id) {
     const copyProductsCart = [...productsCart];
     const item = copyProductsCart.find((product) => product.id === id);
+    const { price, name } = productList[id - 1];
+    const unitValue = Number(price);
+    const subTotal = Number(price);
     if (!item) {
-      copyProductsCart.push({ id, qtd: 1 });
+      copyProductsCart.push({ id, name, qtd: 1, unitValue, subTotal });
+      console.log(copyProductsCart);
     } else {
       item.qtd += 1;
+      item.subTotal += item.unitValue;
+      console.log(copyProductsCart);
     }
 
     setProductsCart(copyProductsCart);
@@ -24,9 +30,13 @@ function Card() {
   function removeProductToCart(id) {
     const copyProductsCart = [...productsCart];
     const item = copyProductsCart.find((product) => product.id === id);
+    const { price } = productList[id - 1];
+    const unitValue = Number(price);
     if (item && item.qtd > 1) {
       item.qtd -= 1;
+      item.subTotal -= unitValue;
       setProductsCart(copyProductsCart);
+      console.log(copyProductsCart);
     } else {
       const arrayFiltered = copyProductsCart.filter(
         (product) => product.id !== id,
@@ -38,19 +48,31 @@ function Card() {
   function inputUserValue(event, id) {
     const copyProductsCart = [...productsCart];
     const item = copyProductsCart.find((product) => product.id === id);
-    console.log(item);
+    const { price, name } = productList[id - 1];
+    const unitValue = Number(price);
+    const inputValue = Math.max(Number(event.target.value), 0);
 
-    if (!item && event.target.value !== 0) {
-      copyProductsCart.push({ id, qtd: Math.max(Number(event.target.value), 0) });
+    if (!item) {
+      copyProductsCart.push({
+        id,
+        name,
+        qtd: inputValue,
+        unitValue,
+        subTotal: Number((unitValue * inputValue).toFixed(2)),
+      });
       setProductsCart(copyProductsCart);
-    } if (item.qtd >= 1) {
-      item.qtd = Math.max(Number(event.target.value), 0);
+      console.log(copyProductsCart);
+    } else if (item.qtd >= 1) {
+      item.qtd = inputValue;
+      item.subTotal = Number((unitValue * item.qtd).toFixed(2));
       setProductsCart(copyProductsCart);
-    } else {
+      console.log(copyProductsCart);
+    } else if (event.target.value === 0) {
       const arrayFiltered = copyProductsCart.filter(
         (product) => product.id !== id,
       );
       setProductsCart(arrayFiltered);
+      console.log(productsCart);
     }
   }
 
@@ -106,7 +128,6 @@ function Card() {
           >
             +
           </button>
-          <button type="button"> testeee </button>
         </div>
       )) }
     </>
