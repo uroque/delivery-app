@@ -14,9 +14,13 @@ function Card() {
     const item = copyProductsCart.find((product) => product.id === id);
     const { price, name } = productList[id - 1];
     const unitValue = Number(price);
-    const subTotal = Number(price);
+    const subTotal = parseFloat(price);
     if (!item) {
-      copyProductsCart.push({ id, name, qtd: 1, unitValue, subTotal });
+      copyProductsCart.push({ id,
+        name,
+        qtd: 1,
+        unitValue,
+        subTotal });
       console.log(copyProductsCart);
     } else {
       item.qtd += 1;
