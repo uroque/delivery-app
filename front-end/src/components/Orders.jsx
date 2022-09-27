@@ -57,7 +57,7 @@ function Orders() {
                 `customer_checkout__element-order-table-unit-price-${index}`
               }
             >
-              {order.unitValue }
+              {order.unitValue.toFixed(2).replace('.', ',') }
 
             </span>
             <span
@@ -65,7 +65,7 @@ function Orders() {
                 `customer_checkout__element-order-table-sub-total-${index}`
               }
             >
-              {order.subTotal.toFixed(2)}
+              {order.subTotal.toFixed(2).replace('.', ',')}
 
             </span>
           </div>

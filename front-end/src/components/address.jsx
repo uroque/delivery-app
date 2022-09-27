@@ -30,6 +30,7 @@ function Address() {
     <div>
       P. Vendedora responsável:
       <select
+        data-testid="customer_checkout__select-seller"
         id="select-name-seller"
         onChange={ (event) => { setSeller(event.target.value); } }
       >
@@ -39,6 +40,7 @@ function Address() {
       </select>
       Endereço:
       <input
+        data-testid="customer_checkout__input-address"
         type="text"
         id="input-address"
         value={ address }
@@ -46,6 +48,7 @@ function Address() {
       />
       Número
       <input
+        data-testid="customer_checkout__input-address-number"
         type="number"
         id="input-address"
         value={ number }
@@ -53,7 +56,7 @@ function Address() {
       />
       <button
         type="button"
-        data-testid="customer_checkout__button-address"
+        data-testid="customer_checkout__button-submit-order"
         onClick={ () => ({
           seller,
         }) }
