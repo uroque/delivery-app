@@ -1,4 +1,4 @@
-const { sales, salesProducts } = require('../../database/models');
+const { sales, salesProducts, users } = require('../../database/models');
 
 const getAllSales = async () => {
   const data = await sales.findAll();
@@ -6,16 +6,24 @@ const getAllSales = async () => {
   return data;
 };
 
-const createSale = async (userId, { sale, products }) => {
-  const status = false;
+const createSale = async (userId, {
+   seller: sellerName,  
+    total: totalPrice, address: deliveryAddress, number: deliveryNumber, orders: products }) => {
+  const { id } = await users.findOne({ where: { name: sellerName } });
+  const status = 'Pendente';
   const saleDate = Date.now();
-  const createdSale = await sales.create({ ...sale, userId, saleDate, status });
-  const bulkDB = salesProducts.bulkCreate(products.map(({ productId, quantity }) => ({
+  const createdSale = await sales.create({ 
+    userId, sellerId: id, totalPrice, deliveryAddress, deliveryNumber, status, saleDate });
+  const bulkDB = await salesProducts.bulkCreate(products.map((product) => ({
     saleId: createdSale.get().id,
-    productId,
-    quantity,
+    productId: product.id,
+    quantity: product.qtd,
   })));
-  return bulkDB;
+
+  return {
+    createdSale,
+    bulkDB,
+  };
 };
 
 module.exports = { getAllSales, createSale };

@@ -9,13 +9,12 @@ const postLogin = async (email, password) => {
     const passwordData = database.password;
     if (email !== emailData) return null;
     if (md5(password) !== passwordData) return null;
-    const token = Token({ 
-      // id: database.id, 
+    const token = Token({ id: database.id, 
       name: database.name, 
       email: database.email, 
       role: database.role,
     });
-    return {
+    return { 
       name: database.name,
       email: database.email,
       role: database.role,

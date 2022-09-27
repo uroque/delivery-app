@@ -21,11 +21,9 @@ function Card() {
         qtd: 1,
         unitValue,
         subTotal });
-      console.log(copyProductsCart);
     } else {
       item.qtd += 1;
       item.subTotal += item.unitValue;
-      console.log(copyProductsCart);
     }
 
     setProductsCart(copyProductsCart);
@@ -70,13 +68,11 @@ function Card() {
       item.qtd = inputValue;
       item.subTotal = Number((unitValue * item.qtd).toFixed(2));
       setProductsCart(copyProductsCart);
-      console.log(copyProductsCart);
     } else if (event.target.value === 0) {
       const arrayFiltered = copyProductsCart.filter(
         (product) => product.id !== id,
       );
       setProductsCart(arrayFiltered);
-      console.log(productsCart);
     }
   }
 

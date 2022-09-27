@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import checkoutContext from '../context/checkoutContext/context';
 
 function Address() {
@@ -10,7 +11,7 @@ function Address() {
 
   const { total, orders } = useContext(checkoutContext);
 
-  const { token } = JSON.parse(localStorage.getItem('user'));
+  const userData = JSON.parse(localStorage.getItem('user'));
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -27,14 +28,16 @@ function Address() {
     request();
   }, []);
 
-  const handleForm = async () => {
+  const handleForm = async (event) => {
+    event.preventDefault();
     const request = await fetch('http://localhost:3001/customer/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `${userData.token}`,
       },
+      mode: 'cors',
       body: JSON.stringify({
-        token,
         seller,
         total,
         address,
@@ -43,8 +46,8 @@ function Address() {
       }),
     });
     const data = await request.json();
-
-    navigate(`/customer/orders/${data.id}`);
+    console.log(data);
+    navigate(`/customer/orders/${data[0].saleId}`);
   };
 
   return (
@@ -53,7 +56,7 @@ function Address() {
       <select
         data-testid="customer_checkout__select-seller"
         id="select-name-seller"
-        onChange={ (event) => { setSeller(event.target.value); } }
+        onClick={ (event) => { setSeller(event.target.value); } }
       >
         {users.map((user, index) => (
           <option key={ index } value={ user }>{user}</option>
