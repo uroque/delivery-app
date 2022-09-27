@@ -5,7 +5,7 @@ import checkoutContext from '../context/checkoutContext/context';
 
 function Address() {
   const [users, setUsers] = useState([]);
-  const [seller, setSeller] = useState();
+  const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
 
@@ -23,7 +23,8 @@ function Address() {
         },
       });
       const data = await response.json();
-      setUsers(data.filter((user) => user.role === 'seller').map((user) => user.name));
+      setUsers(data.filter((user) => user.role === 'seller'));
+      setSeller(data.filter((user) => user.role === 'seller')[0]?.id);
     };
     request();
   }, []);
@@ -56,10 +57,10 @@ function Address() {
       <select
         data-testid="customer_checkout__select-seller"
         id="select-name-seller"
-        onClick={ (event) => { setSeller(event.target.value); } }
+        onChange={ (event) => { setSeller(event.target.value); } }
       >
         {users.map((user, index) => (
-          <option key={ index } value={ user }>{user}</option>
+          <option key={ index } value={ user.id }>{user.name}</option>
         ))}
       </select>
       Endereço:
