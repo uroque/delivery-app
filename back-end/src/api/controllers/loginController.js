@@ -1,4 +1,4 @@
-const { postLogin, postRegister } = require('../services/loginService');
+const { postLogin, postRegister, getAllUsers } = require('../services/loginService');
 const http = require('../utils/httpStatus');
 
 const postUser = async (req, res) => {
@@ -22,4 +22,12 @@ const postRegisterUser = async (req, res) => {
   res.status(201).json(User);
 };
 
-module.exports = { postUser, postRegisterUser };
+const getAll = async (req, res) => {
+  const users = await getAllUsers();
+  if (!users) {
+    return res.status(http.notFoundStatus).json({ message: 'Not found' });
+  }
+  return res.status(http.okStatus).json(users);
+};
+
+module.exports = { postUser, postRegisterUser, getAll };

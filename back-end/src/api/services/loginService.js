@@ -43,4 +43,9 @@ const postRegister = async (name, email, password, role) => {
     };
 };
 
-module.exports = { postLogin, postRegister };
+const getAllUsers = async () => {
+  const allUser = await users.findAll();
+  return allUser;
+};
+
+module.exports = { postLogin, postRegister, getAllUsers };

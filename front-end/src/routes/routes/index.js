@@ -4,6 +4,7 @@ import Products from '../../pages/products';
 import Login from '../../pages/login';
 import Register from '../../pages/register';
 import Checkout from '../../pages/checkout';
+import Manager from '../../pages/admin/index';
 
 function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ function AppRoutes() {
         <Route path="/register" exact element={ <Register /> } />
         <Route path="/customer/products" exact element={ <Products /> } />
         <Route path="/customer/checkout" exact element={ <Checkout /> } />
+        <Route path="/admin/manage" exact element={ <Manager /> } />
       </Routes>
     </BrowserRouter>
   );
