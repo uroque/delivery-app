@@ -6,6 +6,7 @@ function Manager() {
   const { name, email, password, setName, setEmail,
     setPassword } = useContext(registerContext);
   const [userlist, setUserList] = useState([]);
+  const [role, setRole] = useState([]);
 
   useEffect(() => {
     async function getAllProducts() {
@@ -17,6 +18,19 @@ function Manager() {
     }
     getAllProducts();
   }, [userlist, setUserList]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const request = await fetch('http://localhost:3001/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, password, role }),
+    });
+    const response = await request.json();
+    setUserList(response);
+  };
 
   return (
     <>
@@ -52,13 +66,19 @@ function Manager() {
           onChange={ (event) => { setPassword(event.target.value); } }
         />
       </label>
-      <select data-testid="admin_manage__select-role">
-        <option>Vendedor</option>
+      <select
+        data-testid="admin_manage__select-role"
+        onChange={ (event) => { setRole(event.target.value); } }
+      >
+        <option value="seller">Vendedor</option>
+        <option value="administrator">Admnistrador</option>
+        <option value="customer">Cliente</option>
       </select>
 
       <button
         type="button"
         data-testid="admin_manage__button-register"
+        onClick={ handleSubmit }
       >
         Cadastrar
       </button>
@@ -91,7 +111,12 @@ function Manager() {
                 {user.role}
               </td>
               <td data-testid={ `admin_manage__element-user-table-remove-${index}` }>
-                <button type="button">Excluir</button>
+                <button
+                  type="button"
+                >
+                  Excluir
+
+                </button>
               </td>
             </tr>))}
         </tbody>
