@@ -7,6 +7,25 @@ function Manager() {
     setPassword } = useContext(registerContext);
   const [userlist, setUserList] = useState([]);
   const [role, setRole] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isEmailInValid, setIsEmailInValid] = useState(false);
+
+  useEffect(() => {
+    const validateCredentials = () => {
+      const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
+      const MIN_PASSWORD_LEN = 5;
+      const MIN_NAME_LEN = 12;
+      if (emailRegex.test(email)
+      && password.length > MIN_PASSWORD_LEN
+      && name.length >= MIN_NAME_LEN) {
+        setIsEmailInValid(false);
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    };
+    validateCredentials();
+  }, [email, name, password]);
 
   useEffect(() => {
     async function getAllProducts() {
@@ -29,7 +48,7 @@ function Manager() {
       body: JSON.stringify({ name, email, password, role }),
     });
     const response = await request.json();
-    setUserList(response);
+    setUserList(...response);
   };
 
   return (
@@ -75,10 +94,23 @@ function Manager() {
         <option value="customer">Cliente</option>
       </select>
 
+      {
+        isEmailInValid
+        && (
+          <p
+            data-testid="common_register__element-invalid_register"
+          >
+            O usuário já existe!
+
+          </p>
+        )
+      }
+
       <button
         type="button"
         data-testid="admin_manage__button-register"
         onClick={ handleSubmit }
+        disabled={ isDisabled }
       >
         Cadastrar
       </button>
