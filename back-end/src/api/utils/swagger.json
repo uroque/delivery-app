@@ -1,0 +1,319 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Delivery APP API",
+    "description": "description",
+    "termsOfService": "http://localhost/3001",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Use to login",
+        "tags": ["Login"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "A successful login response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Login Response": {
+                    "value": {
+                      "name": "Jane Doe",
+                      "email": "jane@doe.com",
+                      "role": "user role",
+                      "token": "user token"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Login Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid data used for login"
+          }
+        },
+        "requestBody": {
+          "required": "true",
+          "content": {
+            "application/json": {
+              "examples": {
+                "User Login": {
+                  "value": {
+                    "email": "jane@doe.com",
+                    "password": "myPassword"
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/User Login"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "description": "Use to register a new user",
+        "tags": ["Register"],
+        "responses": {
+          "201": {
+            "description": "A new user was successfully created response"
+          },
+          "409": {
+            "description": "Invalid data used for register a new user"
+          } 
+        },
+        "requestBody": {
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref":"#/components/schemas/New User"
+              },
+              "examples": {
+                "New User": {
+                  "value": {
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "password": "myPassword"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/products": {
+      "get": {
+        "description": "Route to get and list all the products",
+        "tags": ["Customer"],
+        "responses": {
+          "200": {
+            "description": "Return a list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products List"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products list was found"
+          }
+        }
+      }
+    },
+    "/customer/orders": {
+      "post": {
+        "description": "Route to register a new order",
+        "tags": ["Customer"],
+        "responses": {
+          "201": {
+            "description": "A new order was created"
+          }
+        }
+      }
+    },
+    "/customer/orders/{id}": {
+      "get": {
+        "description": "Route to get a order by ID",
+        "tags": ["Customer"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Products name by ID",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order successfully returned"
+          }
+        }
+      }
+    },
+    "/admin": {
+      "post": {
+        "description": "Route administrator users to register a new user",
+        "tags": ["Admin"],
+        "responses": {
+          "201": {
+            "description": "A new user was created"
+          },
+          "409": {
+            "description": "Invalid data used for register a new user"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref":"#/components/schemas/New User"
+              },
+              "examples": {
+                "New User": {
+                  "value": {
+                    "name": "Jane Doe",
+                    "email": "jane@doe.com",
+                    "password": "myPassword"
+                  }
+                }
+              }
+            }
+          },
+          "required": "true"
+        }
+      }
+    }    
+  },
+  "components": {
+    "schemas": {
+      "User Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type":"string"
+          }
+        }
+      },
+      "Login Response": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "New User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Products List": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "url_image": {
+                "type": "string"
+              }
+            }
+          },
+          "example": [
+              {
+                "id": 1,
+                "name": "Skol Lata 250ml",
+                "price": 2.20,
+                "url_image": "http://localhost:3001/images/skol_lata_350ml.jpg"
+              },
+              {
+                "id": 2,
+                "name": "Heineken 600ml",
+                "price": 7.50,
+                "url_image": "http://localhost:3001/images/heineken_600ml.jpg"
+              },
+              {
+                "id": 3,
+                "name": "Antarctica Pilsen 300ml",
+                "price": 2.49,
+                "url_image": "http://localhost:3001/images/antarctica_pilsen_300ml.jpg"
+              },
+              {
+                "id": 4,
+                "name": "Brahma 600ml",
+                "price": 7.50,
+                "url_image": "http://localhost:3001/images/brahma_600ml.jpg"
+              },
+              {
+                "id": 5,
+                "name": "Skol 269ml",
+                "price": 2.19,
+                "url_image": "http://localhost:3001/images/skol_269ml.jpg"
+              },
+              {
+                "id": 6,
+                "name": "Skol Beats Senses 313ml",
+                "price": 4.49,
+                "url_image": "http://localhost:3001/images/skol_beats_senses_313ml.jpg"
+              },
+              {
+                "id": 7,
+                "name": "Becks 330ml",
+                "price": 4.99,
+                "url_image": "http://localhost:3001/images/becks_330ml.jpg"
+              },
+              {
+                "id": 8,
+                "name": "Brahma Duplo Malte 350ml",
+                "price": 2.79,
+                "url_image": "http://localhost:3001/images/brahma_duplo_malte_350ml.jpg"
+              },
+              {
+                "id": 9,
+                "name": "Becks 600ml",
+                "price": 8.89,
+                "url_image": "http://localhost:3001/images/becks_600ml.jpg"
+              },
+              {
+                "id": 10,
+                "name": "Skol Beats Senses 269ml",
+                "price": 3.57,
+                "url_image": "http://localhost:3001/images/skol_beats_senses_269ml.jpg"
+              },
+              {
+                "id": 11,
+                "name": "Stella Artois 275ml",
+                "price": 3.49,
+                "url_image": "http://localhost:3001/images/stella_artois_275ml.jpg"
+              }
+            ]
+        }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
