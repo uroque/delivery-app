@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import checkoutContext from '../context/checkoutContext/context';
 
 function Address() {
   const [users, setUsers] = useState([]);
@@ -7,7 +8,11 @@ function Address() {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
 
-  // const navigate = useNavigate();
+  const { total, orders } = useContext(checkoutContext);
+
+  const { token } = JSON.parse(localStorage.getItem('user'));
+
+  const navigate = useNavigate();
   useEffect(() => {
     const request = async () => {
       const response = await fetch('http://localhost:3001/users', {
@@ -22,9 +27,25 @@ function Address() {
     request();
   }, []);
 
-  // const handleForm = () => {
-  //   navigate('/customer/orders/<id>');
-  // };
+  const handleForm = async () => {
+    const request = await fetch('http://localhost:3001/customer/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token,
+        seller,
+        total,
+        address,
+        number,
+        orders,
+      }),
+    });
+    const data = await request.json();
+
+    navigate(`/customer/orders/${data.id}`);
+  };
 
   return (
     <div>
@@ -55,11 +76,9 @@ function Address() {
         onChange={ (event) => { setNumber(event.target.value); } }
       />
       <button
-        type="button"
+        type="submit"
         data-testid="customer_checkout__button-submit-order"
-        onClick={ () => ({
-          seller,
-        }) }
+        onClick={ handleForm }
       >
         Finalizar Pedido
       </button>

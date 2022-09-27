@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import checkoutContext from '../context/checkoutContext/context';
 
 function Orders() {
-  const [total, setTotal] = useState();
-  const [orders, setOrders] = useState([]);
+  const { total, orders, setOrders, setTotal } = useContext(checkoutContext);
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('cart'));
     setOrders([...items]);
-  }, []);
+  }, [setOrders]);
 
   useEffect(() => {
     async function getTotal() {
@@ -18,7 +18,7 @@ function Orders() {
       setTotal(totalPrice.toFixed(2));
     }
     getTotal();
-  }, [orders]);
+  }, [orders, setTotal]);
 
   const removeProduct = (id) => {
     const index = orders.findIndex((product) => product.id === id);
