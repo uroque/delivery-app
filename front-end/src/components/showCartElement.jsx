@@ -13,6 +13,7 @@ function ShowCartItem() {
 
   const goToCart = () => {
     localStorage.setItem('cart', JSON.stringify(productsCart));
+
     return navigate('/customer/checkout');
   };
 

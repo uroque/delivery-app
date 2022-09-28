@@ -10,7 +10,7 @@ const tokenValidation = async (req, res, next) => {
     return res.status(http.unauthorize).json({ message: 'Token not found' });
   }
   try {
-    const { data } = jwt.verify(authorization, secret);
+    const { data } = jwt.verify(authorization, secret);  
     req.user = data;
     next();
   } catch (error) {

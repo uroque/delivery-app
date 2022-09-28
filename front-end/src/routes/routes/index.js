@@ -5,6 +5,8 @@ import Login from '../../pages/login';
 import Register from '../../pages/register';
 import Checkout from '../../pages/checkout';
 import Manager from '../../pages/admin/index';
+import Orders from '../../pages/orders';
+ 
 
 function AppRoutes() {
   return (
@@ -16,6 +18,7 @@ function AppRoutes() {
         <Route path="/customer/products" exact element={ <Products /> } />
         <Route path="/customer/checkout" exact element={ <Checkout /> } />
         <Route path="/admin/manage" exact element={ <Manager /> } />
+        <Route path="/customer/orders" exact element={ <Orders /> } />
       </Routes>
     </BrowserRouter>
   );

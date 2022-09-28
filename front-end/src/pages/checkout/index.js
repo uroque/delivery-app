@@ -1,10 +1,15 @@
 import React from 'react';
+import NavBar from '../../components/navBar';
+import Orders from '../../components/CartOrders';
+import Address from '../../components/address';
 
 function Checkout() {
   return (
-    <div>
-      Olá
-    </div>
+    <>
+      <NavBar />
+      <Orders />
+      <Address />
+    </>
   );
 }
 
