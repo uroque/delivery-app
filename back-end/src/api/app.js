@@ -5,7 +5,7 @@ const swaggerDocument = require('./utils/swagger.json');
 
 const routerLogin = require('./routes/loginRouter');
 const routerProducts = require('./routes/productsRouter');
-const routerSales = require('./routes/sellRouter');
+const routerCustomer= require('./routes/customerRouter');
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use(routerLogin);
 app.use(routerProducts);
-app.use(routerSales);
+app.use(routerCustomer);
  
 app.use(express.static('public'));
 

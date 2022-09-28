@@ -11,7 +11,6 @@ const getAll = async (_req, res) => {
 const create = async (req, res) => {
   try {
     const { id } = req.user;
-    console.log(id);
     const request = await createSale(id, req.body); 
     return res.status(http.createdStatus).json(request.bulkDB);
   } catch (error) {

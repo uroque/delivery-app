@@ -22,6 +22,7 @@ function NavBar() {
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
+        onClick={ () => navigate('/customer/orders') }
       >
         Meus Pedidos
       </button>
