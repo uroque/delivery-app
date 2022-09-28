@@ -6,7 +6,6 @@ import Register from '../../pages/register';
 import Checkout from '../../pages/checkout';
 import Manager from '../../pages/admin/index';
 import Orders from '../../pages/orders';
- 
 
 function AppRoutes() {
   return (
