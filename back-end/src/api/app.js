@@ -5,7 +5,7 @@ const swaggerDocument = require('./utils/swagger.json');
 
 const routerLogin = require('./routes/loginRouter');
 const routerProducts = require('./routes/productsRouter');
-const routerCustomer= require('./routes/customerRouter');
+const routerCustomer = require('./routes/customerRouter');
 
 const app = express();
 
