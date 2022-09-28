@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
- 
+
 import checkoutContext from '../context/checkoutContext/context';
 
 function Address() {

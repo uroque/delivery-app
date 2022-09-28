@@ -3,10 +3,10 @@ const validateToken = require('../middlewares/validToken');
 
 const rota = express.Router();
  
-const { postUser, postRegisterUser, getAll, getAllUsers } = require('../controllers/loginController');
+const { postUser, postRegisterUser, getAllUsers } = require('../controllers/loginController');
 
 // -----------GET----------------
-rota.get('/admin/users', validateToken, getAll);
+rota.get('/admin/users', validateToken, getAllUsers);
 rota.get('/users', getAllUsers);
 
 // -----------POST---------------

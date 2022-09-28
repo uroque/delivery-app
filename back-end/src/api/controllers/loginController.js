@@ -1,5 +1,4 @@
- 
-const { postLogin, postRegister, getAllUsers, getAllUsersService } = require('../services/loginService');
+const { postLogin, postRegister, getAllUsersService } = require('../services/loginService');
  
 const http = require('../utils/httpStatus');
 
@@ -22,13 +21,13 @@ const postRegisterUser = async (req, res) => {
   res.status(201).json(User);
 };
 
-const getAll = async (req, res) => {
-  const users = await getAllUsers();
-  if (!users) {
-    return res.status(http.notFoundStatus).json({ message: 'Not found' });
-  }
-  return res.status(http.okStatus).json(users);
-};
+// const getAll = async (req, res) => {
+//   const users = await getAllUsers();
+//   if (!users) {
+//     return res.status(http.notFoundStatus).json({ message: 'Not found' });
+//   }
+//   return res.status(http.okStatus).json(users);
+// };
  
 const getAllUsers = async (_req, res) => {
     const users = await getAllUsersService();
@@ -37,5 +36,4 @@ const getAllUsers = async (_req, res) => {
     res.status(200).json(users);
 };
 
-module.exports = { postUser, postRegisterUser, getAll, getAllUsers };
- 
+module.exports = { postUser, postRegisterUser, getAllUsers };
