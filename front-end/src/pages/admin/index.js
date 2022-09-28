@@ -6,10 +6,11 @@ function Manager() {
   const { name, email, password, setName, setEmail,
     setPassword } = useContext(registerContext);
   const [userlist, setUserList] = useState([]);
-  const [role, setRole] = useState([]);
+  const [role, setRole] = useState('seller');
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEmailInValid, setIsEmailInValid] = useState(false);
 
+  const userData = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
     const validateCredentials = () => {
       const emailRegex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
@@ -29,29 +30,33 @@ function Manager() {
 
   useEffect(() => {
     async function getAllProducts() {
-      const request = await fetch('http://localhost:3001/users', {
+      const request = await fetch('http://localhost:3001/admin/users', {
         method: 'GET',
+        headers: {
+          authorization: `${userData.token}`,
+        },
       });
       const response = await request.json();
       setUserList(response);
     }
     getAllProducts();
-  }, [userlist, setUserList]);
+  }, [userlist, setUserList, userData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const request = await fetch('http://localhost:3001/register', {
+    const request = await fetch('http://localhost:3001/admin/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `${userData.token}`,
       },
       body: JSON.stringify({ name, email, password, role }),
     });
     const response = await request.json();
+
     if (response.message === 'O usuário já existe') {
       return setIsEmailInValid(true);
     }
-    setUserList(...response);
   };
 
   return (
@@ -101,7 +106,7 @@ function Manager() {
         isEmailInValid
         && (
           <p
-            data-testid="common_register__element-invalid_register"
+            data-testid="admin_manage__element-invalid-register"
           >
             O usuário já existe!
 

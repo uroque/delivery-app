@@ -26,7 +26,7 @@ const postLogin = async (email, password) => {
 
 const postRegister = async (name, email, password, role) => {
     const database = await users.findAll({ where: { [Op.or]: [{ email }, { name }] } });
-    if (database) return null;
+    if (database.length > 0) return null;
     let userRole = role;
     if (!role) { userRole = 'customer'; }
     const { id } = await users.create({ name, email, password: md5(password), role: userRole });

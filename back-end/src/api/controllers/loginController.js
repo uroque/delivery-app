@@ -14,8 +14,8 @@ const postUser = async (req, res) => {
 };
 
 const postRegisterUser = async (req, res) => {
-  const { name, email, password } = req.body;
-  const User = await postRegister(name, email, password);
+  const { name, email, password, role } = req.body;
+  const User = await postRegister(name, email, password, role);
   if (!User) {
   return res.status(http.conflictStatus).json({ message: 'O usuário já existe' });
   }
