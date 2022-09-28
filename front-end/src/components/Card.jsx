@@ -14,14 +14,16 @@ function Card() {
     const item = copyProductsCart.find((product) => product.id === id);
     const { price, name } = productList[id - 1];
     const unitValue = Number(price);
-    const subTotal = Number(price);
+    const subTotal = parseFloat(price);
     if (!item) {
-      copyProductsCart.push({ id, name, qtd: 1, unitValue, subTotal });
-      console.log(copyProductsCart);
+      copyProductsCart.push({ id,
+        name,
+        qtd: 1,
+        unitValue,
+        subTotal });
     } else {
       item.qtd += 1;
       item.subTotal += item.unitValue;
-      console.log(copyProductsCart);
     }
 
     setProductsCart(copyProductsCart);
@@ -66,13 +68,11 @@ function Card() {
       item.qtd = inputValue;
       item.subTotal = Number((unitValue * item.qtd).toFixed(2));
       setProductsCart(copyProductsCart);
-      console.log(copyProductsCart);
     } else if (event.target.value === 0) {
       const arrayFiltered = copyProductsCart.filter(
         (product) => product.id !== id,
       );
       setProductsCart(arrayFiltered);
-      console.log(productsCart);
     }
   }
 

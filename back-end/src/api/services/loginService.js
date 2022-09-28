@@ -9,13 +9,12 @@ const postLogin = async (email, password) => {
     const passwordData = database.password;
     if (email !== emailData) return null;
     if (md5(password) !== passwordData) return null;
-    const token = Token({ 
-      // id: database.id, 
+    const token = Token({ id: database.id, 
       name: database.name, 
       email: database.email, 
       role: database.role,
     });
-    return {
+    return { 
       name: database.name,
       email: database.email,
       role: database.role,
@@ -43,4 +42,10 @@ const postRegister = async (name, email, password, role) => {
     };
 };
 
-module.exports = { postLogin, postRegister };
+const getAllUsersService = async () => {
+  const database = await users.findAll();
+  if (!database) return null;
+  return database;
+};
+
+module.exports = { postLogin, postRegister, getAllUsersService };

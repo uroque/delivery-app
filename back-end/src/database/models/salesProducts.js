@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
+      field: 'sale_id',
     },
     productId: {
       type: DataTypes.INTEGER,
@@ -21,14 +22,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
+      field: 'product_id',
     },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   }, {
-    tablename: 'salesProducts',
-    timestamps: false,
+    tablename: 'sales_products',
+    timestamps: false, 
     underscored: true,
   });
 
