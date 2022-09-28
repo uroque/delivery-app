@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { users } = require('../../database/models');
 const Token = require('../utils/jwt');
 
@@ -24,7 +25,7 @@ const postLogin = async (email, password) => {
 };
 
 const postRegister = async (name, email, password, role) => {
-    const database = await users.findOne({ where: { email } });
+    const database = await users.findAll({ where: { [Op.or]: [{ email }, { name }] } });
     if (database) return null;
     let userRole = role;
     if (!role) { userRole = 'customer'; }

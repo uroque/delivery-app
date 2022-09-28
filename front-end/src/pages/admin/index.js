@@ -48,6 +48,9 @@ function Manager() {
       body: JSON.stringify({ name, email, password, role }),
     });
     const response = await request.json();
+    if (response.message === 'O usuário já existe') {
+      return setIsEmailInValid(true);
+    }
     setUserList(...response);
   };
 
@@ -126,7 +129,7 @@ function Manager() {
           </tr>
         </thead>
         <tbody>
-          {userlist && userlist.map((user, index) => (
+          {userlist.map((user, index) => (
             <tr key={ index }>
               <td
                 data-testid={ `admin_manage__element-user-table-item-number-${index}` }
