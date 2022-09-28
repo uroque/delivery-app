@@ -55,6 +55,11 @@ function Login() {
     }
   }
 
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) return navigate('/customer/products');
+  }, [navigate]);
+
   return (
     <form>
       <label htmlFor="email-input">
