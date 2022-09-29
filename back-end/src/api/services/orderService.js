@@ -8,7 +8,6 @@ const getAllOrders = async (id) => {
 };
 
 const getOrdersAndProducts = async (id) => {
- console.log('entrou');
  const data = await sales.findAll({ 
   where: { id }, 
   include: [
@@ -17,7 +16,7 @@ const getOrdersAndProducts = async (id) => {
   ],
  });
  if (!data) return null;
- console.log('data', data);
+ 
  return data;
 };
 

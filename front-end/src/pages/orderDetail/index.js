@@ -27,29 +27,36 @@ function OrdersDetail() {
   };
 
   return (
-    <>
+    <div>
       <NavBar />
-      <h1>Detalhes do Pedido</h1>
-      <span
+      <h1>Detalhe do Pedido</h1>
+      <label
         data-testid="customer_order_details__element-order-details-label-order-id"
+        htmlFor="order-id"
       >
-        { ` Pedido: ${sales?.id}`}
-      </span>
-      <span
+        <p id="order-id">{ ` Pedido: 00${sales?.id}`}</p>
+      </label>
+      <label
+        htmlFor="seller-name"
         data-testid="customer_order_details__element-order-details-label-seller-name"
       >
-        {`Vendedor: ${sales?.userSeller?.name}`}
-      </span>
-      <span
+        <p id="seller-name">{`Vendedor: ${sales.userSeller?.name}`}</p>
+      </label>
+      <label
+        htmlFor="sale-date"
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        {`Data: ${formatDate(sales?.saleDate)}`}
-      </span>
-      <span
+        <p id="sale-date">
+          {' '}
+          {`Data: ${formatDate(sales?.saleDate)}`}
+        </p>
+      </label>
+      <label
+        htmlFor="delivery-status"
         data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
-        {`${sales?.status}`}
-      </span>
+        <p id="delivery-status">{`${sales?.status}`}</p>
+      </label>
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
@@ -69,7 +76,7 @@ function OrdersDetail() {
           </tr>
         </thead>
         <tbody>
-          {sales?.products?.map((product, index) => (
+          {sales.products?.map((product, index) => (
             <tr key={ product.id }>
               <td
                 data-testid={
@@ -97,24 +104,25 @@ function OrdersDetail() {
                   `customer_order_details__element-order-table-unit-price-${index}`
                 }
               >
-                {product.price}
+                {product.price?.replace('.', ',')}
               </td>
               <td
                 data-testid={
                   `customer_order_details__element-order-table-sub-total-${index}`
                 }
               >
-                {+product.price * product.salesProducts.quantity}
+                {(+product.price * product.salesProducts.quantity)
+                  .toFixed(2).replace('.', ',')}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <h2 data-testid="data-testid='customer_order_details__element-order-total-price">
-        {sales?.totalPrice.replace('.', ',')}
+        { sales.totalPrice?.replace('.', ',') }
         {' '}
       </h2>
-    </>
+    </div>
 
   );
 }
