@@ -118,7 +118,7 @@ function OrdersDetail() {
           ))}
         </tbody>
       </table>
-      <h2 data-testid="data-testid='customer_order_details__element-order-total-price">
+      <h2 data-testid="customer_order_details__element-order-total-price">
         { sales.totalPrice?.replace('.', ',') }
         {' '}
       </h2>
