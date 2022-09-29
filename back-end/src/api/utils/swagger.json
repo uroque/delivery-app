@@ -6,7 +6,35 @@
     "termsOfService": "http://localhost/3001",
     "version": "1.0.0"
   },
-  "paths": {
+  "paths": { 
+    "/users": {
+      "get": {
+        "description": "Get and list all users",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "A successful login response",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Users Response": {
+                    "value": {
+                      "name": "Jane Doe",
+                      "email": "jane@doe.com",
+                      "role": "user role",
+                      "token": "user token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid data used for login"
+          }
+        }
+      }
+    },
     "/login": {
       "post": {
         "description": "Use to login",
@@ -177,8 +205,29 @@
   },
   "components": {
     "schemas": {
+      "Users Response": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "role": {
+              "type": "number"
+            },
+            "url_image": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "User Login": {
         "type": "object",
+        "items": "object",
         "properties": {
           "email": {
             "type": "string"
