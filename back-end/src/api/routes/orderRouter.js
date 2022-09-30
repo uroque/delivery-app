@@ -9,9 +9,11 @@ const orderController = require('../controllers/orderController');
 rota.get('/customer/orders', validateToken, orderController.getOrderByUser);
 rota.get('/seller/orders', validateToken, orderController.getOrderByUser);
 rota.get('/customer/orders/:id', validateToken, orderController.getOrdersAndProducts);
+rota.get('/seller/orders/:id', validateToken, orderController.getOrdersAndProducts);
 
 // -----------POST---------------
 rota.post('/customer/orders', validateToken, sellController.create);
-// -----------PUT----------------
+// -----------PATCH----------------
+rota.patch('/status/orders/:id', validateToken, orderController.updateStatus);
 
 module.exports = rota;

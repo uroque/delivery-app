@@ -21,6 +21,7 @@ function AppRoutes() {
         <Route path="/customer/orders" exact element={ <Order /> } />
         <Route path="/customer/orders/:id" exact element={ <OrdersDetail /> } />
         <Route path="/seller/orders" element={ <Order /> } />
+        <Route path="/seller/orders/:id" element={ <OrdersDetail /> } />
       </Routes>
     </BrowserRouter>
   );

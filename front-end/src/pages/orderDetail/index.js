@@ -4,12 +4,14 @@ import NavBar from '../../components/navBar';
 
 function OrdersDetail() {
   const [sales, setSales] = useState([]);
+  const [status, setStatus] = useState('');
   const { id } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
+  const prefix = userData.role === 'seller' ? 'seller' : 'customer';
 
   useEffect(() => {
     async function getSaleById() {
-      const request = await fetch(`http://localhost:3001/customer/orders/${id}`, {
+      const request = await fetch(`http://localhost:3001/${prefix}/orders/${id}`, {
         method: 'GET',
         headers: {
           authorization: `${userData.token}`,
@@ -19,7 +21,23 @@ function OrdersDetail() {
       setSales(response[0]);
     }
     getSaleById();
-  }, [id, sales, userData.token]);
+  }, [id, status, prefix, sales, userData.token]);
+
+  useEffect(() => {
+    const updateStatus = async () => {
+      if (status) {
+        await fetch(`http://localhost:3001/status/orders/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `${userData.token}`,
+          },
+          body: JSON.stringify({ status }),
+        });
+      }
+    };
+    updateStatus();
+  }, [id, status, userData.token]);
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -31,20 +49,22 @@ function OrdersDetail() {
       <NavBar />
       <h1>Detalhe do Pedido</h1>
       <label
-        data-testid="customer_order_details__element-order-details-label-order-id"
+        data-testid={ `${prefix}_order_details__element-order-details-label-order-id` }
         htmlFor="order-id"
       >
         <p id="order-id">{ ` Pedido: 00${sales?.id}`}</p>
       </label>
-      <label
-        htmlFor="seller-name"
-        data-testid="customer_order_details__element-order-details-label-seller-name"
-      >
-        <p id="seller-name">{`Vendedor: ${sales.userSeller?.name}`}</p>
-      </label>
+      { userData.role === 'customer' && (
+        <label
+          htmlFor="seller-name"
+          data-testid="customer_order_details__element-order-details-label-seller-name"
+        >
+          <p id="seller-name">{`Vendedor: ${sales.userSeller?.name}`}</p>
+        </label>
+      )}
       <label
         htmlFor="sale-date"
-        data-testid="customer_order_details__element-order-details-label-order-date"
+        data-testid={ `${prefix}_order_details__element-order-details-label-order-date` }
       >
         <p id="sale-date">
           {' '}
@@ -53,18 +73,46 @@ function OrdersDetail() {
       </label>
       <label
         htmlFor="delivery-status"
-        data-testid="customer_order_details__element-order-details-label-delivery-status"
+        data-testid={
+          `${prefix}_order_details__element-order-details-label-delivery-status`
+        }
       >
         <p id="delivery-status">{`${sales?.status}`}</p>
       </label>
-      <button
-        type="button"
-        data-testid="customer_order_details__button-delivery-check"
-        disabled
-      >
-        Marcar como entregue
+      { prefix === 'seller' ? (
+        <>
+          <button
+            type="button"
+            data-testid={ `${prefix}_order_details__button-preparing-check` }
+            disabled={ sales?.status !== 'Pendente' }
+            onClick={ () => setStatus('Preparando') }
+          >
+            Preparar pedido
 
-      </button>
+          </button>
+          <button
+            type="button"
+            data-testid={ `${prefix}_order_details__button-dispatch-check` }
+            disabled={ sales?.status !== 'Preparando' }
+            onClick={ () => setStatus('Em Trânsito') }
+          >
+            Saiu para entrega
+
+          </button>
+        </>
+      )
+        : (
+          <button
+            type="button"
+            data-testid={ `${prefix}_order_details__button-delivery-check` }
+            disabled={ sales?.status !== 'Em Trânsito' }
+            onClick={ () => setStatus('Entregue') }
+          >
+            Marcar como entregue
+
+          </button>
+        )}
+
       <table>
         <thead>
           <tr>
@@ -80,35 +128,35 @@ function OrdersDetail() {
             <tr key={ product.id }>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-item-number${index}`
+                  `${prefix}_order_details__element-order-table-item-number${index}`
                 }
               >
                 {product.id}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-name-${index}`
+                  `${prefix}_order_details__element-order-table-name-${index}`
                 }
               >
                 {product.name}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-quantity-${index}`
+                  `${prefix}_order_details__element-order-table-quantity-${index}`
                 }
               >
                 {product.salesProducts.quantity}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-unit-price-${index}`
+                  `${prefix}_order_details__element-order-table-unit-price-${index}`
                 }
               >
                 {product.price?.replace('.', ',')}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-sub-total-${index}`
+                  `${prefix}_order_details__element-order-table-sub-total-${index}`
                 }
               >
                 {(+product.price * product.salesProducts.quantity)
@@ -118,7 +166,7 @@ function OrdersDetail() {
           ))}
         </tbody>
       </table>
-      <h2 data-testid="customer_order_details__element-order-total-price">
+      <h2 data-testid={ `${prefix}_order_details__element-order-total-price` }>
         { sales.totalPrice?.replace('.', ',') }
         {' '}
       </h2>

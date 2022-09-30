@@ -18,4 +18,12 @@ const getOrdersAndProducts = async (req, res) => {
   return res.status(http.okStatus).json(data);
 };
 
-module.exports = { getOrderByUser, getOrdersAndProducts };
+const updateStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const data = await orderService.updateStatus(id, status);
+  if (!data) return res.status(http.notFoundStatus).json({ message: 'Not Found' });
+  return res.status(http.okStatus).json(data);
+};
+
+module.exports = { getOrderByUser, getOrdersAndProducts, updateStatus };
