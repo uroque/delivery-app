@@ -3,8 +3,8 @@ const http = require('../utils/httpStatus');
 
 const getOrderByUser = async (req, res) => {
   try {
-    const { id } = req.user;
-    const request = await orderService.getAllOrders(id);
+    const { id, role } = req.user;
+    const request = await orderService.getAllOrders(id, role);
     if (!request) return res.status(http.notFoundStatus).json({ message: 'Not Found' });
     return res.status(http.okStatus).json(request);
   } catch (error) {

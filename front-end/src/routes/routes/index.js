@@ -5,7 +5,7 @@ import Login from '../../pages/login';
 import Register from '../../pages/register';
 import Checkout from '../../pages/checkout';
 import Manager from '../../pages/admin/index';
-import Orders from '../../pages/orders';
+import Order from '../../pages/orders';
 import OrdersDetail from '../../pages/orderDetail';
 
 function AppRoutes() {
@@ -18,8 +18,9 @@ function AppRoutes() {
         <Route path="/customer/products" exact element={ <Products /> } />
         <Route path="/customer/checkout" exact element={ <Checkout /> } />
         <Route path="/admin/manage" exact element={ <Manager /> } />
-        <Route path="/customer/orders" exact element={ <Orders /> } />
+        <Route path="/customer/orders" exact element={ <Order /> } />
         <Route path="/customer/orders/:id" exact element={ <OrdersDetail /> } />
+        <Route path="/seller/orders" element={ <Order /> } />
       </Routes>
     </BrowserRouter>
   );
