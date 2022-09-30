@@ -6,6 +6,7 @@ import Register from '../../pages/register';
 import Checkout from '../../pages/checkout';
 import Manager from '../../pages/admin/index';
 import Orders from '../../pages/orders';
+import OrdersDetail from '../../pages/orderDetail';
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
         <Route path="/customer/checkout" exact element={ <Checkout /> } />
         <Route path="/admin/manage" exact element={ <Manager /> } />
         <Route path="/customer/orders" exact element={ <Orders /> } />
+        <Route path="/customer/orders/:id" exact element={ <OrdersDetail /> } />
       </Routes>
     </BrowserRouter>
   );

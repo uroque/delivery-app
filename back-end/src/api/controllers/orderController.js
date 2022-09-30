@@ -12,4 +12,10 @@ const getOrderByUser = async (req, res) => {
   }
 };
 
-module.exports = { getOrderByUser };
+const getOrdersAndProducts = async (req, res) => {
+  const data = await orderService.getOrdersAndProducts(req.params.id);
+  if (!data) return res.status(http.notFoundStatus).json({ message: 'Not Found' });
+  return res.status(http.okStatus).json(data);
+};
+
+module.exports = { getOrderByUser, getOrdersAndProducts };

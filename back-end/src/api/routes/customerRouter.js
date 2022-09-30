@@ -7,6 +7,8 @@ const orderController = require('../controllers/orderController');
 
 // -----------GET----------------
 rota.get('/customer/orders', validateToken, orderController.getOrderByUser);
+rota.get('/customer/orders/:id', validateToken, orderController.getOrdersAndProducts);
+
 // -----------POST---------------
 rota.post('/customer/orders', validateToken, sellController.create);
 // -----------PUT----------------
