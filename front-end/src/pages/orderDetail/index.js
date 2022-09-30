@@ -4,6 +4,7 @@ import NavBar from '../../components/navBar';
 
 function OrdersDetail() {
   const [sales, setSales] = useState([]);
+  const [status, setStatus] = useState('');
   const { id } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
   const prefix = userData.role === 'seller' ? 'seller' : 'customer';
@@ -20,7 +21,23 @@ function OrdersDetail() {
       setSales(response[0]);
     }
     getSaleById();
-  }, [id, prefix, sales, userData.token]);
+  }, [id, status, prefix, sales, userData.token]);
+
+  useEffect(() => {
+    const updateStatus = async () => {
+      if (status) {
+        await fetch(`http://localhost:3001/status/orders/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `${userData.token}`,
+          },
+          body: JSON.stringify({ status }),
+        });
+      }
+    };
+    updateStatus();
+  }, [id, status, userData.token]);
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -67,6 +84,8 @@ function OrdersDetail() {
           <button
             type="button"
             data-testid={ `${prefix}_order_details__button-preparing-check` }
+            disabled={ sales?.status !== 'Pendente' }
+            onClick={ () => setStatus('Preparando') }
           >
             Preparar pedido
 
@@ -74,6 +93,8 @@ function OrdersDetail() {
           <button
             type="button"
             data-testid={ `${prefix}_order_details__button-dispatch-check` }
+            disabled={ sales?.status !== 'Preparando' }
+            onClick={ () => setStatus('Em Trânsito') }
           >
             Saiu para entrega
 
@@ -84,7 +105,8 @@ function OrdersDetail() {
           <button
             type="button"
             data-testid={ `${prefix}_order_details__button-delivery-check` }
-            disabled
+            disabled={ sales?.status !== 'Em Trânsito' }
+            onClick={ () => setStatus('Entregue') }
           >
             Marcar como entregue
 

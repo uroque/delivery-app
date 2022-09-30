@@ -25,4 +25,10 @@ const getOrdersAndProducts = async (id) => {
  return data;
 };
 
-module.exports = { getAllOrders, getOrdersAndProducts };
+const updateStatus = async (id, status) => {
+  const data = await sales.update({ status }, { where: { id } });
+  if (!data) return null;
+  return data;
+};
+
+module.exports = { getAllOrders, getOrdersAndProducts, updateStatus };

@@ -13,6 +13,7 @@ rota.get('/seller/orders/:id', validateToken, orderController.getOrdersAndProduc
 
 // -----------POST---------------
 rota.post('/customer/orders', validateToken, sellController.create);
-// -----------PUT----------------
+// -----------PATCH----------------
+rota.patch('/status/orders/:id', validateToken, orderController.updateStatus);
 
 module.exports = rota;
