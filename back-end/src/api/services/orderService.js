@@ -1,7 +1,12 @@
 const { sales, products, users } = require('../../database/models');
 
-const getAllOrders = async (id) => {
-  const data = await sales.findAll({ where: { userId: id } });
+const getAllOrders = async (id, role) => {
+  let data = null;
+  if (role === 'customer') {
+    data = await sales.findAll({ where: { userId: id } });
+  } else if (role === 'seller') {
+    data = await sales.findAll({ where: { sellerId: id } });
+  }  
   if (!data) return null;
   
   return data;

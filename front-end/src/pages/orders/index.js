@@ -2,7 +2,7 @@ import React from 'react';
 import Orders from '../../components/customerOrders';
 import NavBar from '../../components/navBar';
 
-function CustomerOrders() {
+function Order() {
   return (
     <>
       <NavBar />
@@ -11,4 +11,4 @@ function CustomerOrders() {
   );
 }
 
-export default CustomerOrders;
+export default Order;

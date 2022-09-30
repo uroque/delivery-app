@@ -11,21 +11,38 @@ function NavBar() {
     return navigate('/login');
   };
 
+  const userRole = JSON.parse(localStorage.getItem('user')).role;
+
   return (
     <nav>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </button>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/orders') }
-      >
-        Meus Pedidos
-      </button>
+      {userRole === 'seller' ? (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => navigate('/seller/orders') }
+        >
+          Pedidos
+        </button>
+      )
+        : (
+          <button
+            type="button"
+            data-testid="customer_products__element-navbar-link-products"
+            onClick={ () => navigate('/customer/products') }
+          >
+            Produtos
+          </button>
+        )}
+
+      {userRole !== 'seller' && (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => navigate('/customer/orders') }
+        >
+          Meus Pedidos
+        </button>
+      )}
       <button
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
