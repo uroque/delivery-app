@@ -67,7 +67,6 @@ function OrdersDetail() {
           <button
             type="button"
             data-testid={ `${prefix}_order_details__button-preparing-check` }
-            disabled
           >
             Preparar pedido
 
@@ -75,7 +74,6 @@ function OrdersDetail() {
           <button
             type="button"
             data-testid={ `${prefix}_order_details__button-dispatch-check` }
-            disabled
           >
             Saiu para entrega
 
