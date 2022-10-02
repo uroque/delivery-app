@@ -6,35 +6,7 @@
     "termsOfService": "http://localhost/3001",
     "version": "1.0.0"
   },
-  "paths": { 
-    "/users": {
-      "get": {
-        "description": "Get and list all users",
-        "tags": ["Users"],
-        "responses": {
-          "200": {
-            "description": "A successful login response",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Users Response": {
-                    "value": {
-                      "name": "Jane Doe",
-                      "email": "jane@doe.com",
-                      "role": "user role",
-                      "token": "user token"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Invalid data used for login"
-          }
-        }
-      }
-    },
+  "paths": {
     "/login": {
       "post": {
         "description": "Use to login",
@@ -118,60 +90,67 @@
         }
       }
     },
-    "/customer/products": {
+    "/admin/users": {
       "get": {
-        "description": "Route to get and list all the products",
-        "tags": ["Customer"],
+        "description": "Get and list all users",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Admin"],
         "responses": {
           "200": {
-            "description": "Return a list of products",
+            "description": "A list of users was found",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Products List"
+                "examples": {
+                  "Users Response": {
+                    "value": {
+                      "name": "Jane Doe",
+                      "email": "jane@doe.com",
+                      "role": "user role",
+                      "token": "user token"
+                    }
+                  }
                 }
               }
             }
           },
           "404": {
-            "description": "No products list was found"
+            "description": "Not found"
           }
         }
       }
     },
-    "/customer/orders": {
-      "post": {
-        "description": "Route to register a new order",
-        "tags": ["Customer"],
-        "responses": {
-          "201": {
-            "description": "A new order was created"
-          }
-        }
-      }
-    },
-    "/customer/orders/{id}": {
+    "/users": {
       "get": {
-        "description": "Route to get a order by ID",
-        "tags": ["Customer"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Products name by ID",
-            "required": "true"
-          }
-        ],
+        "description": "Get and list all users",
+        "tags": ["Users"],
         "responses": {
           "200": {
-            "description": "Order successfully returned"
+            "description": "A list of users was found",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Users Response": {
+                    "value": {
+                      "name": "Jane Doe",
+                      "email": "jane@doe.com",
+                      "role": "user role",
+                      "token": "user token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
     },
-    "/admin": {
+    "/admin/register": {
       "post": {
         "description": "Route administrator users to register a new user",
+        "security": [{ "bearerAuth": [] }],
         "tags": ["Admin"],
         "responses": {
           "201": {
@@ -201,7 +180,107 @@
           "required": "true"
         }
       }
-    }    
+    },
+    "/customer/products": {
+      "get": {
+        "description": "Route to get and list all the products",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Customer"],
+        "responses": {
+          "200": {
+            "description": "Return a list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products List"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No products list was found"
+          }
+        }
+      }
+    },
+    "/customer/orders": {
+      "post": {
+        "description": "Route to register a new order",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Customer"],
+        "responses": {
+          "201": {
+            "description": "A new order was created"
+          }
+        }
+      },
+      "get": {
+
+      }
+    },
+    "/customer/orders/{id}": {
+      "get": {
+        "description": "Route to get a order by ID",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Customer"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Products name by ID",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order successfully returned"
+          }
+        }
+      },
+      "patch": {
+        
+      }
+    },
+    "/seller/orders": {
+      "get": {
+        "description": "Route to get a order by ID",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Seller"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Products name by ID",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order successfully returned"
+          }
+        }
+      }
+    },
+    "/seller/orders/{id}": {
+      "get": {
+        "description": "Route to get a order by ID",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Seller"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Products name by ID",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order successfully returned"
+          }
+        }
+      }
+    }
   },
   "components": {
     "schemas": {
