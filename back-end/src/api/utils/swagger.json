@@ -6,12 +6,59 @@
     "termsOfService": "http://localhost/3001",
     "version": "1.0.0"
   },
-  "paths": {
+  "paths": { 
+    "/users": {
+      "get": {
+        "description": "Get and list all users",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "A list of users was successfully found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users Response"
+                },
+                "examples": {
+                  "Users Response": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "Jane Doe",
+                        "email": "jane@doe.com",
+                        "password": "myPassword",
+                        "role": "role"
+                      },
+                      {
+                        "id": 2,
+                        "name": "James Doe",
+                        "email": "james@doe.com",
+                        "password": "myPassword",
+                        "role": "role"
+                      },
+                      {
+                        "id": 3,
+                        "name": "Jay Lo",
+                        "email": "jaylo@doe.com",
+                        "password": "myadmin/userPassword",
+                        "role": "role"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
     "/login": {
       "post": {
         "description": "Use to login",
         "tags": ["Login"],
-        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "A successful login response",
@@ -22,8 +69,8 @@
                     "value": {
                       "name": "Jane Doe",
                       "email": "jane@doe.com",
-                      "role": "user role",
-                      "token": "user token"
+                      "role": "role",
+                      "token": "token"
                     }
                   }
                 },
@@ -42,10 +89,22 @@
           "content": {
             "application/json": {
               "examples": {
-                "User Login": {
+                "Admin User Login": {
                   "value": {
-                    "email": "jane@doe.com",
-                    "password": "myPassword"
+                    "email": "adm@deliveryapp.com",
+                    "password": "--adm2@21!!--"
+                  }
+                },
+                "Seller User Login": {
+                  "value": {
+                    "email": "fulana@deliveryapp.com",
+                    "password": "fulana@123"
+                  }
+                },
+                "Customer User Login": {
+                  "value": {
+                    "email": "zebirita@email.com",
+                    "password": "$#zebirita#$"
                   }
                 }
               },
@@ -63,10 +122,10 @@
         "tags": ["Register"],
         "responses": {
           "201": {
-            "description": "A new user was successfully created response"
+            "description": "A new user was successfully created"
           },
           "409": {
-            "description": "Invalid data used for register a new user"
+            "description": "User already exists"
           } 
         },
         "requestBody": {
@@ -90,63 +149,6 @@
         }
       }
     },
-    "/admin/users": {
-      "get": {
-        "description": "Get and list all users",
-        "security": [{ "bearerAuth": [] }],
-        "tags": ["Admin"],
-        "responses": {
-          "200": {
-            "description": "A list of users was found",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Users Response": {
-                    "value": {
-                      "name": "Jane Doe",
-                      "email": "jane@doe.com",
-                      "role": "user role",
-                      "token": "user token"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          }
-        }
-      }
-    },
-    "/users": {
-      "get": {
-        "description": "Get and list all users",
-        "tags": ["Users"],
-        "responses": {
-          "200": {
-            "description": "A list of users was found",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Users Response": {
-                    "value": {
-                      "name": "Jane Doe",
-                      "email": "jane@doe.com",
-                      "role": "user role",
-                      "token": "user token"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found"
-          }
-        }
-      }
-    },
     "/admin/register": {
       "post": {
         "description": "Route administrator users to register a new user",
@@ -155,6 +157,9 @@
         "responses": {
           "201": {
             "description": "A new user was created"
+          },
+          "401": {
+            "description": "Expired or invalid token"
           },
           "409": {
             "description": "Invalid data used for register a new user"
@@ -169,8 +174,8 @@
               "examples": {
                 "New User": {
                   "value": {
-                    "name": "Jane Doe",
-                    "email": "jane@doe.com",
+                    "name": "James Doe",
+                    "email": "james@doe.com",
                     "password": "myPassword"
                   }
                 }
@@ -180,11 +185,59 @@
           "required": "true"
         }
       }
+    },    
+    "/admin/users": {
+      "get": {
+        "description": "Get and list all users",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Admin"],
+        "responses": {
+          "200": {
+            "description": "A list of users was successfully found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users Response"
+                },
+                "examples": {
+                  "Users Response": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "Jane Doe",
+                        "email": "jane@doe.com",
+                        "password": "myPassword",
+                        "role": "role"
+                      },
+                      {
+                        "id": 2,
+                        "name": "James Doe",
+                        "email": "james@doe.com",
+                        "password": "myPassword",
+                        "role": "role"
+                      },
+                      {
+                        "id": 3,
+                        "name": "Jay Lo",
+                        "email": "jaylo@doe.com",
+                        "password": "myPassword",
+                        "role": "role"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
     },
     "/customer/products": {
       "get": {
         "description": "Route to get and list all the products",
-        "security": [{ "bearerAuth": [] }],
         "tags": ["Customer"],
         "responses": {
           "200": {
@@ -198,7 +251,7 @@
             }
           },
           "404": {
-            "description": "No products list was found"
+            "description": "Not found"
           }
         }
       }
@@ -215,13 +268,22 @@
         }
       },
       "get": {
-
+        "description": "Route to get all orders from a user",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Customer"],
+        "responses": {
+          "200": {
+            "description": "User orders list successfully found"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
       }
     },
     "/customer/orders/{id}": {
       "get": {
         "description": "Route to get a order by ID",
-        "security": [{ "bearerAuth": [] }],
         "tags": ["Customer"],
         "parameters": [
           {
@@ -236,27 +298,19 @@
             "description": "Order successfully returned"
           }
         }
-      },
-      "patch": {
-        
       }
     },
     "/seller/orders": {
       "get": {
-        "description": "Route to get a order by ID",
+        "description": "Route to get all orders from a user",
         "security": [{ "bearerAuth": [] }],
         "tags": ["Seller"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Products name by ID",
-            "required": "true"
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Order successfully returned"
+            "description": "User orders list successfully returned"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -266,17 +320,27 @@
         "description": "Route to get a order by ID",
         "security": [{ "bearerAuth": [] }],
         "tags": ["Seller"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Products name by ID",
-            "required": "true"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Order successfully returned"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/status/orders/{id}": {
+      "patch": {
+        "description": "Route to get a order by ID",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Seller"],
+        "responses": {
+          "200": {
+            "description": "Order successfully updated"
+          },
+          "404": {
+            "description": "Not found"
           }
         }
       }
@@ -295,10 +359,13 @@
             "name": {
               "type": "string"
             },
-            "role": {
-              "type": "number"
+            "email": {
+              "type": "string"
             },
-            "url_image": {
+            "password": {
+              "type": "string"
+            },
+            "role": {
               "type": "string"
             }
           }
