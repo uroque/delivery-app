@@ -17,6 +17,7 @@ The API documentation made using SwaggerUI can be accessed using "/api-docs" as 
 
 Technologies used in this project:
 
+- MSC Architecture
 - JavaScript
 - Node.js
 - Express.js
