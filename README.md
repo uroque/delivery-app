@@ -10,3 +10,18 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 -->
 
 ![](https://github.com/uroque/delivery-app/blob/main/app_delivery.gif)
+
+We developed Front End and Back End of an application that simulates a delivery app. 
+
+The API documentation made using SwaggerUI can be accessed using "/api-docs" as path to Back End route.
+
+Technologies used on this project:
+
+- JavaScript
+- Node.js
+- Express.js
+- ReactJS
+- MySQL
+- Sequelize
+- RTL
+- SwaggerUI
