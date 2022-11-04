@@ -9,6 +9,8 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
 
+We developed Front End and Back End of an application that simulates a delivery app.
+
 ![](https://github.com/uroque/delivery-app/blob/main/app_delivery.gif)
 
 We developed Front End and Back End of an application that simulates a delivery app. 
