@@ -15,7 +15,7 @@ We developed Front End and Back End of an application that simulates a delivery 
 
 The API documentation made using SwaggerUI can be accessed using "/api-docs" as path to Back End route.
 
-Technologies used on this project:
+Technologies used in this project:
 
 - JavaScript
 - Node.js
